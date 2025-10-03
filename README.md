@@ -36,7 +36,7 @@ A modern, full-stack task management system built with C# .NET and vanilla JavaS
 
 ### 1. Clone the repository
 ```bash
-git clone https://github.com/YOUR_USERNAME/TaskFlow.git
+git clone https:https://github.com/d2mariad/TaskFlowAPI.git
 cd TaskFlow
 ```
 
@@ -152,7 +152,6 @@ builder.Services.AddCors(options =>
 - [ ] Due date reminders
 - [ ] Task search and filtering
 - [ ] Dark/Light theme toggle
-- [ ] Export tasks to PDF/CSV
 - [ ] Drag-and-drop task reordering
 
 ## 🤝 Contributing
@@ -166,17 +165,9 @@ This project is open source and available under the [MIT License](LICENSE).
 ## 👤 Author
 
 **Your Name**
-- GitHub: [@YOUR_USERNAME](https://github.com/YOUR_USERNAME)
-- LinkedIn: [Your LinkedIn](https://linkedin.com/in/your-profile)
+- GitHub: [d2mariad](https://github.com/d2mariad)
+- LinkedIn: [Your LinkedIn](https://www.linkedin.com/in/maria-dia-302aa82b3/)
 
-## 📸 Screenshots
 
-### Dashboard
-![Dashboard](screenshots/dashboard.png)
-
-### Task Management
-![Task Management](screenshots/tasks.png)
-
----
 
 ⭐ Star this repo if you find it useful!
