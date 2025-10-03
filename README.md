@@ -36,7 +36,8 @@ A modern, full-stack task management system built with C# .NET and vanilla JavaS
 
 ### 1. Clone the repository
 ```bash
-git clone https:https://github.com/d2mariad/TaskFlowAPI.git
+git clone https://github.com/d2mariad/TaskFlowAPI.git
+
 cd TaskFlow
 ```
 
@@ -158,16 +159,13 @@ builder.Services.AddCors(options =>
 
 Contributions are welcome! Please feel free to submit a Pull Request.
 
-## 📝 License
-
-This project is open source and available under the [MIT License](LICENSE).
-
-## 👤 Author
-
-**Your Name**
-- GitHub: [d2mariad](https://github.com/d2mariad)
-- LinkedIn: [Your LinkedIn](https://www.linkedin.com/in/maria-dia-302aa82b3/)
 
 
+
+## Author
+
+**Maria Dia**
+- GitHub: [@d2mariad](https://github.com/d2mariad)
+- LinkedIn: [Maria Dia](https://www.linkedin.com/in/maria-dia-302aa82b3/)
 
 ⭐ Star this repo if you find it useful!
