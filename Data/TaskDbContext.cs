@@ -16,7 +16,7 @@ namespace TaskFlowAPI.Data
         {
             base.OnModelCreating(modelBuilder);
 
-            // Configure TaskItem entity
+           
             modelBuilder.Entity<TaskItem>(entity =>
             {
                 entity.HasKey(e => e.Id);
@@ -37,7 +37,7 @@ namespace TaskFlowAPI.Data
                       .HasConversion<string>();
             });
 
-            // Seed initial data (optional)
+            
             modelBuilder.Entity<TaskItem>().HasData(
                 new TaskItem
                 {

@@ -49,7 +49,7 @@ namespace TaskFlowAPI.Controllers
                 Title = dto.Title,
                 Description = dto.Description,
                 Priority = dto.Priority,
-                Status = TaskFlowAPI.Models.TaskStatus.Todo, // fully qualified
+                Status = TaskFlowAPI.Models.TaskStatus.Todo, 
                 DueDate = dto.DueDate,
                 CreatedAt = DateTime.UtcNow
             };
@@ -80,7 +80,7 @@ namespace TaskFlowAPI.Controllers
 
             if (dto.Status.HasValue)
             {
-                task.Status = dto.Status.Value; // fully qualified enum in DTO
+                task.Status = dto.Status.Value; 
                 if (dto.Status.Value == TaskFlowAPI.Models.TaskStatus.Done && !task.CompletedAt.HasValue)
                     task.CompletedAt = DateTime.UtcNow;
             }

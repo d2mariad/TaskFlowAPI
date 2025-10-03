@@ -3,18 +3,18 @@ using TaskFlowAPI.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container
+
 builder.Services.AddControllers();
 
-// Swagger/OpenAPI
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-// Add DbContext with In-Memory Database
+
 builder.Services.AddDbContext<TaskDbContext>(options =>
     options.UseInMemoryDatabase("TaskFlowDb"));
 
-// ? Add CORS policy so frontend can access API
+
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAll", policy =>
@@ -27,24 +27,24 @@ builder.Services.AddCors(options =>
 
 var app = builder.Build();
 
-// ? Enable Swagger UI in Development
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI(c =>
     {
         c.SwaggerEndpoint("/swagger/v1/swagger.json", "TaskFlow API v1");
-        c.RoutePrefix = string.Empty; // Swagger at root
+        c.RoutePrefix = string.Empty; 
     });
 }
 
-// ? Use CORS
+
 app.UseCors("AllowAll");
 
 // ? Optional: redirect root to Swagger UI (if you want)
 app.MapGet("/", () => Results.Redirect("/swagger"));
 
-// Only use HTTPS redirection in production
+
 if (!app.Environment.IsDevelopment())
 {
     app.UseHttpsRedirection();
@@ -52,15 +52,15 @@ if (!app.Environment.IsDevelopment())
 
 app.UseAuthorization();
 
-// ? Map controllers (this is crucial for your TasksController to work!)
+
 app.MapControllers();
 
-// ? Seed the database with initial data (optional, but helpful)
+
 using (var scope = app.Services.CreateScope())
 {
     var context = scope.ServiceProvider.GetRequiredService<TaskDbContext>();
-    context.Database.EnsureCreated(); // For InMemory DB, ensures it's initialized
-    // Optional: add some default tasks if needed
+    context.Database.EnsureCreated(); 
+   
     if (!context.Tasks.Any())
     {
         context.Tasks.AddRange(
@@ -80,5 +80,5 @@ using (var scope = app.Services.CreateScope())
 
 app.Run();
 
-// Make Program class accessible for integration tests
+
 public partial class Program { }
