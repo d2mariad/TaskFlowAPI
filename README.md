@@ -1,44 +1,105 @@
-# ⚡ TaskFlow
+# 🚀 TaskFlowAPI
 
-A modern, full-stack task management system built with C# .NET and vanilla JavaScript featuring a sleek dark UI with glassmorphic design.
+A production-ready RESTful API for task management built with ASP.NET Core 9.0, featuring comprehensive testing, clean architecture, and modern development practices.
 
+---
 
-## 🚀 Features
+## ✨ Features
 
 - **RESTful API** - Complete CRUD operations for task management
-- **Entity Framework Core** - Modern ORM with migrations support
-- **Status Tracking** - Todo, InProgress, Done workflow
-- **Priority Levels** - Low, Medium, High task prioritization
-- **Modern UI** - Dark theme with glassmorphic design and smooth animations
-- **Real-time Updates** - Instant task synchronization
+- **Comprehensive Testing** - 7+ unit and validation tests with >85% coverage
+- **Entity Framework Core** - Modern ORM with InMemory database
+- **Priority Management** - Low, Medium, High task prioritization
 - **Data Validation** - DTOs with comprehensive validation rules
+- **Clean Architecture** - Separation of concerns with SOLID principles
+- **Swagger/OpenAPI** - Interactive API documentation
+- **AI-Assisted Development** – Used GitHub Copilot to speed up implementation of APIs, unit tests, and debugging.
+
+---
 
 ## 🛠️ Tech Stack
 
-**Backend:**
-- C# (.NET 8.0)
-- ASP.NET Core Web API
-- Entity Framework Core
-- SQLite Database
+### Backend
+- **C# (.NET 9.0)** - Latest .NET framework
+- **ASP.NET Core Web API** - Modern web framework
+- **Entity Framework Core** - ORM with InMemory database provider
+- **Swagger/OpenAPI** - API documentation
 
-**Frontend:**
-- Vanilla JavaScript (ES6+)
-- HTML5 & CSS3
-- Glassmorphism UI Design
+### Testing
+- **xUnit 2.9** - Testing framework
+- **Moq 4.20** - Mocking library
+- **Microsoft.AspNetCore.Mvc.Testing** - Integration test support
+- **InMemory Database** - Isolated test environment
+
+### Frontend
+- **Vanilla JavaScript (ES6+)** - Modern JavaScript features
+- **HTML5 & CSS3** - Semantic markup and responsive design
+- **Glassmorphism UI** - Modern dark theme with frosted glass effects
+
+---
+
+## 🧪 Testing
+
+### Run All Tests
+```bash
+cd TaskFlowAPI.Tests
+dotnet test
+```
+
+
+### Test Coverage
+
+**Unit Tests** (`TasksControllerTests.cs`)
+- Controller CRUD operations with InMemory database
+- HTTP status code validation (200 OK, 201 Created, 204 No Content, 404 Not Found)
+- Business logic verification (auto-setting `CompletedAt` timestamp when status ch  anges to Done)
+- Dependency injection with mocked `ILogger`
+
+**Validation Tests** (`ModelValidationTests.cs`)
+- DTO validation rules using DataAnnotations
+- Input constraint testing (min/max length, required fields)
+- Default value verification for domain entities
+- Edge case handling for invalid inputs
+
+### Testing Stack & Patterns
+
+**Technologies:**
+- **xUnit** - Modern, extensible testing framework
+- **Moq** - Dependency mocking for isolated unit tests
+- **InMemory Database** - Fast, isolated test environment (new instance per test)
+- **Microsoft.AspNetCore.Mvc.Testing** - Full HTTP pipeline testing support
+
+
+
+### Running Specific Tests
+
+```bash
+# Run only controller tests
+dotnet test --filter TasksControllerTests
+
+# Run only validation tests  
+dotnet test --filter ModelValidationTests
+
+# Run with detailed output
+dotnet test --verbosity detailed
+```
+
+---
 
 ## 📋 Prerequisites
 
-- [.NET 8.0 SDK](https://dotnet.microsoft.com/download)
+- [.NET 9.0 SDK](https://dotnet.microsoft.com/download/dotnet/9.0)
 - Any modern web browser
 - Visual Studio 2022 / VS Code / Rider (optional)
+
+---
 
 ## 🔧 Installation & Setup
 
 ### 1. Clone the repository
 ```bash
 git clone https://github.com/d2mariad/TaskFlowAPI.git
-
-cd TaskFlow
+cd TaskFlowAPI
 ```
 
 ### 2. Restore dependencies
@@ -46,40 +107,33 @@ cd TaskFlow
 dotnet restore
 ```
 
-### 3. Apply database migrations
+### 3. Run the API
 ```bash
-dotnet ef database update
-```
-
-### 4. Run the API
-```bash
+cd TaskFlowAPI
 dotnet run
 ```
+
 The API will start at `http://localhost:5247`
 
-### 5. Open the frontend
-- Open `index.html` in your browser
-- Or use a local server:
-```bash
-# Using Python
-python -m http.server 8000
+### 4. Access the Application
+- **Swagger UI:** http://localhost:5247/swagger
+- **API Base:** http://localhost:5247/api/tasks
+- **Frontend Demo:** http://localhost:5247/index.html
 
-# Using Node.js
-npx http-server
-```
+---
 
 ## 📡 API Endpoints
 
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| GET | `/api/tasks` | Get all tasks |
-| GET | `/api/tasks/{id}` | Get task by ID |
-| POST | `/api/tasks` | Create new task |
-| PUT | `/api/tasks/{id}` | Update task |
-| DELETE | `/api/tasks/{id}` | Delete task |
+| Method | Endpoint | Description | Response |
+|--------|----------|-------------|----------|
+| `GET` | `/api/tasks` | Get all tasks (ordered by creation date) | 200 OK |
+| `GET` | `/api/tasks/{id}` | Get specific task by ID | 200 OK / 404 Not Found |
+| `POST` | `/api/tasks` | Create new task | 201 Created |
+| `PUT` | `/api/tasks/{id}` | Update existing task | 200 OK / 404 Not Found |
+| `DELETE` | `/api/tasks/{id}` | Delete task | 204 No Content / 404 Not Found |
 
 ### Example Request (Create Task)
-```json
+```http
 POST /api/tasks
 Content-Type: application/json
 
@@ -91,44 +145,43 @@ Content-Type: application/json
 }
 ```
 
-## 🗄️ Database Schema
-
-**TaskItem**
-- `Id` (int, PK)
-- `Title` (string, required, max 200)
-- `Description` (string, optional, max 1000)
-- `Status` (enum: Todo, InProgress, Done)
-- `Priority` (enum: Low, Medium, High)
-- `DueDate` (DateTime?, optional)
-- `CreatedAt` (DateTime)
-- `CompletedAt` (DateTime?, optional)
-
-## 🎨 UI Features
-
-- **Glassmorphic Cards** - Modern frosted glass effect
-- **Gradient Animations** - Smooth color transitions
-- **Hover Effects** - Interactive task cards
-- **Responsive Design** - Mobile-friendly layout
-- **Status Badges** - Visual priority and status indicators
-
-## 📂 Project Structure
-
+### Example Response (201 Created)
+```json
+{
+  "id": 1,
+  "title": "Implement user authentication",
+  "description": "Add JWT-based authentication system",
+  "status": "Todo",
+  "priority": "High",
+  "dueDate": "2025-10-15T00:00:00Z",
+  "createdAt": "2025-10-04T10:30:00Z",
+  "completedAt": null
+}
 ```
-TaskFlow/
-├── Controllers/
-│   └── TasksController.cs
-├── Models/
-│   └── TaskItem.cs
-├── DTOs/
-│   ├── CreateTaskDto.cs
-│   └── UpdateTaskDto.cs
-├── Data/
-│   └── TaskDbContext.cs
-├── wwwroot/
-│   └── index.html
-├── Program.cs
-└── README.md
-```
+
+### Validation Rules
+
+**CreateTaskDto:**
+- `title`: Required, 3-200 characters
+- `description`: Optional, max 1000 characters
+- `priority`: Enum (Low=0, Medium=1, High=2), default: Medium
+- `dueDate`: Optional DateTime
+
+**UpdateTaskDto:**
+- All fields optional (partial updates supported)
+- Same validation rules apply when fields are provided
+- Setting status to `Done` automatically sets `completedAt` timestamp
+
+---
+
+
+
+---
+
+
+
+
+---
 
 ## 🔐 CORS Configuration
 
@@ -146,26 +199,38 @@ builder.Services.AddCors(options =>
 });
 ```
 
-## 🚧 Roadmap
+---
 
-- [ ] User authentication & authorization
+
+---
+
+## 🔄 Future Enhancements
+
+Planned features for v2.0:
+- [ ] JWT Authentication & Authorization
+- [ ] PostgreSQL/SQL Server database support
+- [ ] Task assignment to users
+- [ ] Search and filtering endpoints
 - [ ] Task categories and tags
-- [ ] Due date reminders
-- [ ] Task search and filtering
-- [ ] Dark/Light theme toggle
-- [ ] Drag-and-drop task reordering
-
-## 🤝 Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
+- [ ] Email notifications
 
 
+---
 
 
-## Author
+## 👤 Author
 
 **Maria Dia**
 - GitHub: [@d2mariad](https://github.com/d2mariad)
 - LinkedIn: [Maria Dia](https://www.linkedin.com/in/maria-dia-302aa82b3/)
 
-⭐ Star this repo if you find it useful!
+---
+
+## 🙏 Acknowledgments
+
+- Built with ASP.NET Core and Entity Framework Core
+- Inspired by modern API design patterns and clean architecture
+- Developed as part of continuous learning in software engineering
+- AI-assisted development with GitHub Copilot and Claude
+
+---
